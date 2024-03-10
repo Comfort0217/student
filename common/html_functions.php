@@ -89,8 +89,9 @@
         </form>
         INPUT_BOTTOM;        
     }
+
     //  学生一覧を表示する
-    function show_student_list($member){
+    function show_student_list($disp_data){
         //  テーブルのトップを表示
         echo <<<TABLE_TOP
         <table border="1" style="border-collapse:collapse">
@@ -98,13 +99,13 @@
                 <th>学生番号</th><th width="100px">名前</th><th>学年</th>
             </tr>
         TABLE_TOP;
-        foreach($member as $loop){
+        foreach($disp_data as $val){
             //  ヒアドキュメントでデータを表示
             echo <<<END
                     <tr align="center">
-                        <td>{$loop["id"]}</td>
-                        <td><a href="student_edit.php?id={$loop["id"]}">{$loop["name"]}</a></td>
-                        <td>{$loop["grade"]}</td>
+                        <td>{$val['id']}</td>
+                        <td><a href="student_edit.php?id={$val["id"]}">{$val["name"]}</a></td>
+                        <td>{$val["grade"]}</td>
                     </tr>
             
             END;
@@ -139,6 +140,17 @@
             <br>
         <a href="student_delete.php?id={$id}">情報の削除</a>
     OPERATIONS;
+    }
+
+    //　ページ数表示
+    function pasingDisplay($now, $max_student) {
+        for($i = 1; $i <= $max_student; $i++){ // 最大ページ数分リンクを作成
+            if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
+                echo $now. ' '; 
+            } else {
+                echo "<a href='index.php?page_id={$i}'>{$i}</a>", ' ';
+            }
+        }
     }
 
 ?>
