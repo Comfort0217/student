@@ -157,13 +157,29 @@
         return $disp_data;
     }
     //　ページネーション
-    function pasingDisplay($now, $max_student) {
+    function pasingDisplay($member, $now, $max_student) {
+        $students_num = count($member);
+        echo '全件数'. $students_num. '件'. '  ';
+        if($now > 1){ // リンクをつけるかの判定
+            $prevPage = $now-1;
+            echo "<a href='index.php?page_id={$prevPage}'>前へ</a>";
+        } else {
+            echo '前へ'. ' ';
+        }
+
         for($i = 1; $i <= $max_student; $i++){ // 最大ページ数分リンクを作成
             if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
                 echo $now. ' '; 
             } else {
-                echo "<a href='index.php?page_id={$i}'>{$i}</a>", ' ';
+                echo "<a href='index.php?page_id={$i}'>{$i}</a>", '  ';
             }
+        }
+
+        if($now < $max_student){ // リンクをつけるかの判定
+            $nextPage = $now + 1;
+            echo "<a href='index.php?page_id={$nextPage}'>次へ</a>";
+        } else {
+            echo '次へ';
         }
     }
 

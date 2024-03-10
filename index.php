@@ -1,7 +1,6 @@
 <?php
     require_once("common.php");
-    require_once("common/html_functions.php");
-    $now = isset($_GET['page_id']) ? $_GET['page_id'] : 1;
+    $now = isset($_GET['page_id']) ? (int)$_GET['page_id'] : (int)1;
     $member = $dbm->get_allstudents();
     show_top();
     $disp_data = getDisp_data ($now, $member);
@@ -14,5 +13,5 @@
     echo "<br>";
 
     $max_student = getMax_student ($member);
-    pasingDisplay($now, $max_student);
+    pasingDisplay($member, $now, $max_student);
 ?>
