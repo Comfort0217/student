@@ -141,8 +141,22 @@
         <a href="student_delete.php?id={$id}">情報の削除</a>
     OPERATIONS;
     }
-
-    //　ページ数表示
+    // 1ページの記事の表示数
+    define('MAX','15'); 
+    //　ページング処理
+    function getMax_student ($member) {
+        $students_num = count($member); // トータルデータ件数
+        $max_student = ceil($students_num / MAX); // トータルページ数※ceilは小数点を切り捨てる関数
+        return $max_student;
+    }
+    // 配列の何番目から取得すればよいか
+    function getDisp_data ($now, $member) {
+        $start_no = ($now - 1) * MAX; 
+        // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+        $disp_data = array_slice($member, $start_no, MAX, true);
+        return $disp_data;
+    }
+    //　ページネーション
     function pasingDisplay($now, $max_student) {
         for($i = 1; $i <= $max_student; $i++){ // 最大ページ数分リンクを作成
             if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
